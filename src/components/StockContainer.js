@@ -8,7 +8,7 @@ function StockContainer( {stocks, onAddStockToPortfolio } ) {
       <h2>Stocks</h2>
       {/* render stock list here*/}
       {stocks.map(stock => 
-        <Stock key={stock.id} stock={stock} onAddStockToPortfolio={onAddStockToPortfolio}/>
+        <Stock key={stock.id} stock={stock} onStockClick={onAddStockToPortfolio}/>
       )}
     </div>
   );

@@ -16,6 +16,12 @@ function MainContainer() {
     .then(data => setStocks(data))
   }, [])
 
+  function onDeleteStock(deletedStocked) {
+    const updatedBoughtStocks = boughtStocks.filter(stock => stock.id !== deletedStocked.id)
+    setBoughtStocks(updatedBoughtStocks)
+
+  }
+
   function onAddStockToPortfolio(addedStock) {
     setBoughtStocks([...boughtStocks, addedStock])
   }
@@ -54,7 +60,7 @@ function MainContainer() {
           />
         </div>
         <div className="col-4">
-          <PortfolioContainer boughtStocks={boughtStocks}/>
+          <PortfolioContainer boughtStocks={boughtStocks} onDeleteStock={onDeleteStock}/>
         </div>
       </div>
     </div>
