@@ -7,7 +7,7 @@ function MainContainer() {
 
   const [stocks, setStocks] = useState([])
   const [boughtStocks, setBoughtStocks] = useState([])
-  const [filter, setFilter] = useState("")
+  const [filter, setFilter] = useState("All")
 
   useEffect(() => {
     fetch("http://localhost:3001/stocks")
@@ -23,7 +23,14 @@ function MainContainer() {
     setFilter(selected)
   }
   
-  const filterResults = stocks.filter(stock => stock.type === filter)
+  const filterResults = stocks.filter(stock => {
+    if (filter === "All") {
+      return true
+    } else {
+      return stock.type === filter
+    }
+    
+  })
 
 
   return (
