@@ -8,6 +8,7 @@ function MainContainer() {
   const [stocks, setStocks] = useState([])
   const [boughtStocks, setBoughtStocks] = useState([])
   const [filter, setFilter] = useState("All")
+  const [isSortedBy, setIsSortedBy] = useState("")
 
   useEffect(() => {
     fetch("http://localhost:3001/stocks")
@@ -22,6 +23,7 @@ function MainContainer() {
   function onFilterChange(selected) {
     setFilter(selected)
   }
+
   
   const filterResults = stocks.filter(stock => {
     if (filter === "All") {
@@ -30,12 +32,20 @@ function MainContainer() {
       return stock.type === filter
     }
     
+  }).sort((a, b) => {
+    if (isSortedBy === "Alphabetically") {
+      return a.name.localeCompare(b.name)
+    } else if (isSortedBy === "Price") {
+      return parseFloat(a.price) - parseFloat(b.price)
+    } else {
+      return stocks
+    }
   })
 
 
   return (
     <div>
-      <SearchBar onFilterChange={onFilterChange}/>
+      <SearchBar onFilterChange={onFilterChange} setIsSortedBy={setIsSortedBy}/>
       <div className="row">
         <div className="col-8">
           <StockContainer 
