@@ -33,7 +33,7 @@ function SearchBar( {onFilterChange} ) {
       <label>
         <strong>Filter:</strong>
         <select onChange={handleFilter}>
-          <option value="Tech">Tech</option>
+          <option value="Tech">All</option>
           <option value="Tech">Tech</option>
           <option value="Sportswear">Sportswear</option>
           <option value="Finance">Finance</option>
