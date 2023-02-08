@@ -7,6 +7,7 @@ function MainContainer() {
 
   const [stocks, setStocks] = useState([])
   const [boughtStocks, setBoughtStocks] = useState([])
+  const [filter, setFilter] = useState("")
 
   useEffect(() => {
     fetch("http://localhost:3001/stocks")
@@ -16,15 +17,24 @@ function MainContainer() {
 
   function onAddStockToPortfolio(addedStock) {
     setBoughtStocks([...boughtStocks, addedStock])
-    console.log(boughtStocks)
   }
+
+  function onFilterChange(selected) {
+    setFilter(selected)
+  }
+  
+  const filterResults = stocks.filter(stock => stock.type === filter)
+
 
   return (
     <div>
-      <SearchBar />
+      <SearchBar onFilterChange={onFilterChange}/>
       <div className="row">
         <div className="col-8">
-          <StockContainer stocks={stocks} onAddStockToPortfolio={onAddStockToPortfolio}/>
+          <StockContainer 
+            stocks={filterResults}
+            onAddStockToPortfolio={onAddStockToPortfolio}
+          />
         </div>
         <div className="col-4">
           <PortfolioContainer boughtStocks={boughtStocks}/>
